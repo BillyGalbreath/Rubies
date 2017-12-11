@@ -1,0 +1,9 @@
+[{
+  "modid": "rubies",
+  "name": "Rubies",
+  "description": "Rubies Mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "authorList": ["BillyGalbreath"],
+  "logoFile": "assets/logo.png"
+}]
