@@ -2,7 +2,6 @@ package net.pl3x.rubies.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
@@ -28,11 +27,5 @@ public class ItemBase extends Item {
     public ItemBase setCreativeTab(@Nonnull CreativeTabs tab) {
         super.setCreativeTab(tab);
         return this;
-    }
-
-    @Override
-    @Nonnull
-    public ItemStack getDefaultInstance() {
-        return new ItemStack(this, 1);
     }
 }

@@ -5,26 +5,27 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import net.pl3x.rubies.block.ModBlocks;
+import net.pl3x.rubies.configuration.ModConfig;
 
 import java.util.Random;
 
 public class ModWorldGen implements IWorldGenerator {
-    private WorldGenerator generator;
-
-    public ModWorldGen() {
-        generator = new WorldGenMinable(ModBlocks.RUBY_ORE.getDefaultState(), 8);
-    }
-
     @Override
     public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        if (world.provider.getDimension() != 0) {
-            return;
+        if (!ModConfig.worldGen.enabled) {
+            return; // disabled worldgen
         }
-        for (int i = 0; i < 2; i++) {
-            generator.generate(world, rand, new BlockPos((chunkX << 4) + rand.nextInt(16), rand.nextInt(16), (chunkZ << 4) + rand.nextInt(16)));
+        if (world.provider.getDimension() == 0) {
+            for (int i = 0; i < ModConfig.worldGen.maxChances; i++) {
+                new WorldGenMinable(ModBlocks.RUBY_ORE.getDefaultState(),
+                        rand.nextInt(ModConfig.worldGen.maxVeinSize))
+                        .generate(world, rand, new BlockPos(
+                                (chunkX << 4) + rand.nextInt(16),
+                                ModConfig.worldGen.yLower + rand.nextInt(ModConfig.worldGen.yUpper - ModConfig.worldGen.yLower + 1),
+                                (chunkZ << 4) + rand.nextInt(16)));
+            }
         }
     }
 }
