@@ -15,7 +15,10 @@ import net.pl3x.rubies.Rubies;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class BakedModel implements IBakedModel {
@@ -23,12 +26,20 @@ public class BakedModel implements IBakedModel {
     public static final ResourceLocation RUBY_ORE_GLOW = new ResourceLocation(Rubies.modId, "blocks/ruby_ore_glow");
 
     private final VertexFormat format;
-    private final TextureAtlasSprite base, overlay;
+    private final TextureAtlasSprite baseSprite, overlaySprite;
+
+    private final Map<EnumFacing, BakedQuad> baseQuads = new HashMap<>();
+    private final Map<EnumFacing, BakedQuad> overlayQuads = new HashMap<>();
 
     public BakedModel(VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         this.format = format;
-        this.base = bakedTextureGetter.apply(RUBY_ORE);
-        this.overlay = bakedTextureGetter.apply(RUBY_ORE_GLOW);
+        this.baseSprite = bakedTextureGetter.apply(RUBY_ORE);
+        this.overlaySprite = bakedTextureGetter.apply(RUBY_ORE_GLOW);
+
+        for (EnumFacing facing : EnumFacing.values()) {
+            baseQuads.put(facing, createQuad(facing, BlockVec.FULL_CUBE.get(facing), baseSprite, 0));
+            overlayQuads.put(facing, createQuad(facing, BlockVec.FULL_CUBE.get(facing), overlaySprite, 220));
+        }
     }
 
     private void putVertex(UnpackedBakedQuad.Builder builder, Vec3d vec, TextureAtlasSprite sprite, float u, float v, int brightness) {
@@ -61,49 +72,27 @@ public class BakedModel implements IBakedModel {
         }
     }
 
-    private BakedQuad createQuad(Vec3d v1, Vec3d v2, Vec3d v3, Vec3d v4, TextureAtlasSprite sprite, EnumFacing facing, int brightness) {
+    private BakedQuad createQuad(EnumFacing facing, BlockVec vec, TextureAtlasSprite sprite, int brightness) {
         UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(format);
         builder.setTexture(sprite);
         builder.setQuadOrientation(facing);
-        builder.setQuadTint(1);
-        putVertex(builder, v1, sprite, 16, 16, brightness);
-        putVertex(builder, v2, sprite, 16, 0, brightness);
-        putVertex(builder, v3, sprite, 0, 0, brightness);
-        putVertex(builder, v4, sprite, 0, 16, brightness);
+        putVertex(builder, vec.v1, sprite, 16, 16, brightness);
+        putVertex(builder, vec.v2, sprite, 16, 0, brightness);
+        putVertex(builder, vec.v3, sprite, 0, 0, brightness);
+        putVertex(builder, vec.v4, sprite, 0, 16, brightness);
         return builder.build();
     }
 
     @Override
     @Nonnull
     public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+        if (side == null) {
+            return Collections.emptyList();
+        }
+
         List<BakedQuad> quads = new ArrayList<>();
-
-        if (side == EnumFacing.DOWN)
-            quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), base, EnumFacing.DOWN, 0));
-        if (side == EnumFacing.UP)
-            quads.add(createQuad(new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1), new Vec3d(1, 1, 0), base, EnumFacing.UP, 0));
-        if (side == EnumFacing.SOUTH)
-            quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(1, 1, 1), new Vec3d(0, 1, 1), new Vec3d(0, 0, 1), base, EnumFacing.NORTH, 0));
-        if (side == EnumFacing.NORTH)
-            quads.add(createQuad(new Vec3d(0, 0, 0), new Vec3d(0, 1, 0), new Vec3d(1, 1, 0), new Vec3d(1, 0, 0), base, EnumFacing.SOUTH, 0));
-        if (side == EnumFacing.WEST)
-            quads.add(createQuad(new Vec3d(0, 0, 1), new Vec3d(0, 1, 1), new Vec3d(0, 1, 0), new Vec3d(0, 0, 0), base, EnumFacing.EAST, 0));
-        if (side == EnumFacing.EAST)
-            quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(1, 1, 0), new Vec3d(1, 1, 1), new Vec3d(1, 0, 1), base, EnumFacing.WEST, 0));
-
-        if (side == EnumFacing.DOWN)
-            quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(1, 0, 1), new Vec3d(0, 0, 1), new Vec3d(0, 0, 0), overlay, EnumFacing.DOWN, 240));
-        if (side == EnumFacing.UP)
-            quads.add(createQuad(new Vec3d(0, 1, 0), new Vec3d(0, 1, 1), new Vec3d(1, 1, 1), new Vec3d(1, 1, 0), overlay, EnumFacing.UP, 240));
-        if (side == EnumFacing.SOUTH)
-            quads.add(createQuad(new Vec3d(1, 0, 1), new Vec3d(1, 1, 1), new Vec3d(0, 1, 1), new Vec3d(0, 0, 1), overlay, EnumFacing.NORTH, 240));
-        if (side == EnumFacing.NORTH)
-            quads.add(createQuad(new Vec3d(0, 0, 0), new Vec3d(0, 1, 0), new Vec3d(1, 1, 0), new Vec3d(1, 0, 0), overlay, EnumFacing.SOUTH, 240));
-        if (side == EnumFacing.WEST)
-            quads.add(createQuad(new Vec3d(0, 0, 1), new Vec3d(0, 1, 1), new Vec3d(0, 1, 0), new Vec3d(0, 0, 0), overlay, EnumFacing.EAST, 240));
-        if (side == EnumFacing.EAST)
-            quads.add(createQuad(new Vec3d(1, 0, 0), new Vec3d(1, 1, 0), new Vec3d(1, 1, 1), new Vec3d(1, 0, 1), overlay, EnumFacing.WEST, 240));
-
+        quads.add(baseQuads.get(side));
+        quads.add(overlayQuads.get(side));
         return quads;
     }
 
@@ -125,7 +114,7 @@ public class BakedModel implements IBakedModel {
     @Override
     @Nonnull
     public TextureAtlasSprite getParticleTexture() {
-        return base;
+        return baseSprite;
     }
 
     @Override

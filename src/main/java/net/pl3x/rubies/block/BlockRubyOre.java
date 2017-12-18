@@ -28,6 +28,9 @@ public class BlockRubyOre extends BlockBase {
 
     @Override
     public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-        return !world.getBlockState(pos.offset(side)).doesSideBlockRendering(world, pos.offset(side), side.getOpposite());
+        BlockPos sidePos = pos.offset(side);
+        IBlockState sideState = world.getBlockState(sidePos);
+        return !sideState.doesSideBlockRendering(world, sidePos, side.getOpposite()) ||
+                !sideState.isSideSolid(world, sidePos, side.getOpposite());
     }
 }
