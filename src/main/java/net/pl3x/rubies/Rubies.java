@@ -7,6 +7,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.pl3x.rubies.block.ModBlocks;
 import net.pl3x.rubies.item.ModItems;
@@ -20,6 +21,11 @@ public class Rubies {
 
     @SidedProxy(serverSide = "net.pl3x.rubies.proxy.ServerProxy", clientSide = "net.pl3x.rubies.proxy.ClientProxy")
     public static ServerProxy proxy;
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        proxy.preInit(event);
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {

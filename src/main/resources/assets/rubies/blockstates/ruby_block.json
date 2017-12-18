@@ -4,7 +4,7 @@
     "textures": { "all": "rubies:blocks/ruby_block" }
   },
   "variants": {
-    "inventory": { "model": "cube_all" },
-    "normal": { "model": "cube_all" }
+    "normal": { "model": "cube_all" },
+    "inventory": { "model": "cube_all" }
   }
 }

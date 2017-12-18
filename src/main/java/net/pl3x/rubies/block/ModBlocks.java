@@ -14,7 +14,7 @@ import java.util.Set;
 public class ModBlocks {
     public static final Set<BlockBase> __BLOCKS__ = new HashSet<>();
 
-    public static final BlockBase RUBY_ORE = new BlockBase(
+    public static final BlockRubyOre RUBY_ORE = new BlockRubyOre(
             Material.ROCK, "ruby_ore", "rubyOre",
             ModConfig.blockRubyOre.hardness,
             ModConfig.blockRubyOre.resistance,
