@@ -13,6 +13,8 @@ item.ruby_boots.name=Ruby Boots
 
 tile.ruby_block.name=Block of Ruby
 tile.ruby_ore.name=Ruby Ore
+tile.stairs_ruby.name=Ruby Stairs
+tile.stairs_ruby_ore.name=Ruby Ore Stairs
 
 config.title=Rubies Config
 

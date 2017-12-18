@@ -1,0 +1,5 @@
+{
+  "conditions": {
+    "mod_loaded": "net.pl3x.rubies.recipe.RecipeConditionModLoaded"
+  }
+}

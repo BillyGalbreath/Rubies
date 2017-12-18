@@ -18,6 +18,7 @@ import net.pl3x.rubies.block.model.ModelLoader;
 public class ClientProxy extends ServerProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        super.preInit(event);
         MinecraftForge.EVENT_BUS.register(this);
         ModelLoaderRegistry.registerLoader(new ModelLoader());
     }

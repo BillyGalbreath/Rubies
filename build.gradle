@@ -23,6 +23,10 @@ compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
+dependencies {
+    provided project(":stairs")
+}
+
 minecraft {
     version = mcVersion + "-" + forgeVersion
     runDir = "run"

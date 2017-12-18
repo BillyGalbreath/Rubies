@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rubies:stairs_ruby_ore"
+    ]
+  },
+  "criteria": {
+    "has_stairs_mod": {
+      "trigger": "rubies:mod_loaded",
+      "conditions": {
+        "modid": "stairs"
+      }
+    },
+    "has_ruby_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rubies:ruby_ore"
+          }
+        ]
+      }
+    }
+  }
+}

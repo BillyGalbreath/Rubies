@@ -26,8 +26,6 @@ public class BlockBase extends Block {
         setUnlocalizedName(name);
         setRegistryName(name);
 
-        setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-
         ModBlocks.__BLOCKS__.add(this);
     }
 

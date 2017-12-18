@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "rubies:blocks/ruby_ore",
+    "top": "rubies:blocks/ruby_ore",
+    "side": "rubies:blocks/ruby_ore"
+  }
+}
