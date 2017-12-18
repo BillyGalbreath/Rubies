@@ -13,7 +13,8 @@ import net.pl3x.rubies.block.ModBlocks;
 import net.pl3x.rubies.item.ModItems;
 import net.pl3x.rubies.proxy.ServerProxy;
 
-@Mod(modid = Rubies.modId, name = Rubies.name, version = Rubies.version, dependencies = "after:stairs")
+@Mod(modid = Rubies.modId, name = Rubies.name, version = Rubies.version, dependencies = "after:stairs",
+        updateJSON = "http://pl3x.net/versions/rubies.json")
 public class Rubies {
     public static final String modId = "rubies";
     public static final String name = "Rubies";
