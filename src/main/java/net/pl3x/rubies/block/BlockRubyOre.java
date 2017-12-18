@@ -10,13 +10,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.pl3x.rubies.configuration.HarvestTool;
 
 import javax.annotation.Nonnull;
 
 public class BlockRubyOre extends BlockBase {
-    public BlockRubyOre(Material material, String name, String oreName, float hardness, float resistance, HarvestTool harvestTool, int harvestLevel, MapColor mapColor, SoundType soundType) {
-        super(material, name, oreName, hardness, resistance, harvestTool, harvestLevel, mapColor, soundType);
+    public BlockRubyOre() {
+        super(Material.ROCK, "ruby_ore", "rubyOre");
+
+        setHardness(20);
+        setResistance(30);
+
+        setHarvestLevel("pickaxe", 3);
+
+        setSoundType(SoundType.STONE);
+    }
+
+    @Override
+    @Nonnull
+    public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return MapColor.STONE;
     }
 
     @Override

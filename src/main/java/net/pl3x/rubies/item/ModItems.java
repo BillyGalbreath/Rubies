@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.pl3x.rubies.Rubies;
-import net.pl3x.rubies.configuration.ModConfig;
 import net.pl3x.rubies.item.tool.ItemArmor;
 import net.pl3x.rubies.item.tool.ItemAxe;
 import net.pl3x.rubies.item.tool.ItemHoe;
@@ -24,24 +23,8 @@ import static net.minecraft.item.ItemArmor.ArmorMaterial;
 public class ModItems {
     public static final Set<Item> items = new HashSet<>();
 
-    public static final ArmorMaterial rubyArmorMaterial = EnumHelper.addArmorMaterial(
-            "RUBY", Rubies.modId + ":ruby",
-            ModConfig.armor.factor_durability,
-            new int[]{
-                    ModConfig.armor.reduction_boots,
-                    ModConfig.armor.reduction_leggings,
-                    ModConfig.armor.reduction_chestplate,
-                    ModConfig.armor.reduction_helmet},
-            ModConfig.armor.factor_enchantability,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
-            ModConfig.armor.factor_toughness);
-    public static final ToolMaterial rubyToolMaterial = EnumHelper.addToolMaterial(
-            "RUBY",
-            ModConfig.tool.harvestLevel,
-            ModConfig.tool.durability,
-            ModConfig.tool.efficiency,
-            ModConfig.tool.damage,
-            ModConfig.tool.enchantability);
+    public static final ArmorMaterial rubyArmorMaterial = EnumHelper.addArmorMaterial("RUBY", Rubies.modId + ":ruby", 40, new int[]{4, 7, 10, 4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 4);
+    public static final ToolMaterial rubyToolMaterial = EnumHelper.addToolMaterial("RUBY", 5, 2038, 12, 5, 30);
 
     public static final ItemBase RUBY = new ItemBase("ruby", "ruby").setCreativeTab(CreativeTabs.MISC);
 
