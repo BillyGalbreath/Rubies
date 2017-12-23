@@ -1,8 +1,9 @@
-package net.pl3x.rubies.block;
+package net.pl3x.rubies.block.dependencies;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.pl3x.rubies.block.ModBlocks;
 import net.pl3x.stairs.block.stairs.StairsBasic;
 import net.pl3x.stairs.tab.StairsTab;
 

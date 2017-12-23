@@ -1,49 +1,61 @@
 package net.pl3x.rubies.item;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.pl3x.rubies.Rubies;
-import net.pl3x.rubies.item.tool.ItemArmor;
-import net.pl3x.rubies.item.tool.ItemAxe;
-import net.pl3x.rubies.item.tool.ItemHoe;
-import net.pl3x.rubies.item.tool.ItemPickaxe;
-import net.pl3x.rubies.item.tool.ItemShovel;
-import net.pl3x.rubies.item.tool.ItemSword;
+import net.pl3x.rubies.item.tool.RubyAxe;
+import net.pl3x.rubies.item.tool.RubyHoe;
+import net.pl3x.rubies.item.tool.RubyPickaxe;
+import net.pl3x.rubies.item.tool.RubySpade;
+import net.pl3x.rubies.item.tool.RubySword;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
 
-import static net.minecraft.item.Item.ToolMaterial;
-import static net.minecraft.item.ItemArmor.ArmorMaterial;
-
 public class ModItems {
-    public static final Set<Item> items = new HashSet<>();
+    public static final Set<Item> __ITEMS__ = new HashSet<>();
 
-    public static final ArmorMaterial rubyArmorMaterial = EnumHelper.addArmorMaterial("RUBY", Rubies.modId + ":ruby", 40, new int[]{4, 7, 10, 4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 4);
-    public static final ToolMaterial rubyToolMaterial = EnumHelper.addToolMaterial("RUBY", 5, 2038, 12, 5, 30);
+    public static final RubyItem RUBY = new RubyItem();
 
-    public static final ItemBase RUBY = new ItemBase("ruby", "ruby").setCreativeTab(CreativeTabs.MISC);
+    public static final RubyAxe RUBY_AXE = new RubyAxe();
+    public static final RubyHoe RUBY_HOE = new RubyHoe();
+    public static final RubyPickaxe RUBY_PICKAXE = new RubyPickaxe();
+    public static final RubySpade RUBY_SHOVEL = new RubySpade();
+    public static final RubySword RUBY_SWORD = new RubySword();
 
-    public static final ItemAxe RUBY_AXE = new ItemAxe(rubyToolMaterial, "ruby_axe");
-    public static final ItemHoe RUBY_HOE = new ItemHoe(rubyToolMaterial, "ruby_hoe");
-    public static final ItemPickaxe RUBY_PICKAXE = new ItemPickaxe(rubyToolMaterial, "ruby_pickaxe");
-    public static final ItemShovel RUBY_SHOVEL = new ItemShovel(rubyToolMaterial, "ruby_shovel");
-    public static final ItemSword RUBY_SWORD = new ItemSword(rubyToolMaterial, "ruby_sword");
-
-    public static final ItemArmor RUBY_BOOTS = new ItemArmor(rubyArmorMaterial, EntityEquipmentSlot.FEET, "ruby_boots");
-    public static final ItemArmor RUBY_CHESTPLATE = new ItemArmor(rubyArmorMaterial, EntityEquipmentSlot.CHEST, "ruby_chestplate");
-    public static final ItemArmor RUBY_HELMET = new ItemArmor(rubyArmorMaterial, EntityEquipmentSlot.HEAD, "ruby_helmet");
-    public static final ItemArmor RUBY_LEGGINGS = new ItemArmor(rubyArmorMaterial, EntityEquipmentSlot.LEGS, "ruby_leggings");
+    public static final RubyArmor RUBY_BOOTS = new RubyArmor(EntityEquipmentSlot.FEET, "ruby_boots");
+    public static final RubyArmor RUBY_CHESTPLATE = new RubyArmor(EntityEquipmentSlot.CHEST, "ruby_chestplate");
+    public static final RubyArmor RUBY_HELMET = new RubyArmor(EntityEquipmentSlot.HEAD, "ruby_helmet");
+    public static final RubyArmor RUBY_LEGGINGS = new RubyArmor(EntityEquipmentSlot.LEGS, "ruby_leggings");
 
     public static void register(IForgeRegistry<Item> registry) {
-        items.forEach(registry::register);
+        increaseMaxArmor();
+
+        __ITEMS__.forEach(registry::register);
     }
 
     public static void registerModels() {
-        items.forEach(item -> Rubies.proxy.registerItemRenderer(item, 0, item.getUnlocalizedName().substring(5)));
+        __ITEMS__.forEach(item -> Rubies.proxy.registerItemRenderer(item, 0, item.getUnlocalizedName().substring(5)));
+    }
+
+    private static void increaseMaxArmor() {
+        try {
+            Field field = ReflectionHelper.findField(SharedMonsterAttributes.class, "ARMOR");
+            field.setAccessible(true);
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+            field.set(null, new RangedAttribute(null, "generic.armor", 0.0D, 0.0D, 40.0D).setShouldWatch(true));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRuby extends BlockBase {
     public BlockRuby() {
-        super(Material.IRON, "ruby_block", "rubyBlock");
+        super(Material.IRON, "ruby_block");
 
         setHardness(10);
         setResistance(50);
@@ -29,7 +29,8 @@ public class BlockRuby extends BlockBase {
     }
 
     @Override
-    public BlockRuby setCreativeTab(CreativeTabs creativeTabs) {
+    @Nonnull
+    public BlockRuby setCreativeTab(@Nonnull CreativeTabs creativeTabs) {
         super.setCreativeTab(creativeTabs);
         return this;
     }

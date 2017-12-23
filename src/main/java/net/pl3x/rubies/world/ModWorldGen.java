@@ -15,7 +15,7 @@ public class ModWorldGen implements IWorldGenerator {
     public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.getDimension() == 0) {
             new WorldGenMinable(ModBlocks.RUBY_ORE.getDefaultState(), rand.nextInt(6))
-                    .generate(world, rand, new BlockPos((chunkX << 4) + rand.nextInt(16),
+                    .generate(world, rand, new BlockPos((chunkX << 4) + rand.nextInt(11),
                             rand.nextInt(16), (chunkZ << 4) + rand.nextInt(16)));
         }
     }

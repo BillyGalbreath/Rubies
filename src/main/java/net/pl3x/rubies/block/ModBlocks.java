@@ -26,8 +26,8 @@ public class ModBlocks {
         if (Loader.isModLoaded("stairs")) {
             DepBlocks.init();
         } else {
-            RUBY_BLOCK_STAIRS = new BlockBase(Material.ROCK, "stairs_ruby", "rubyStairs");
-            RUBY_ORE_STAIRS = new BlockBase(Material.ROCK, "stairs_ruby_ore", "rubyOreStairs");
+            RUBY_BLOCK_STAIRS = new BlockBase(Material.ROCK, "stairs_ruby");
+            RUBY_ORE_STAIRS = new BlockBase(Material.ROCK, "stairs_ruby_ore");
         }
     }
 
@@ -36,22 +36,10 @@ public class ModBlocks {
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
-        __BLOCKS__.forEach(block -> {
-            if (block instanceof BlockBase) {
-                registry.register(((BlockBase) block).createItemBlock());
-            } else {
-                registry.register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
-            }
-        });
+        __BLOCKS__.forEach(block -> registry.register(new ItemBlock(block).setRegistryName(block.getRegistryName())));
     }
 
     public static void registerModels() {
-        __BLOCKS__.forEach(block -> {
-            if (block instanceof BlockBase) {
-                ((BlockBase) block).registerItemModel(Item.getItemFromBlock(block));
-            } else {
-                Rubies.proxy.registerItemRenderer(Item.getItemFromBlock(block), 0, block.getUnlocalizedName().substring(5));
-            }
-        });
+        __BLOCKS__.forEach(block -> Rubies.proxy.registerItemRenderer(Item.getItemFromBlock(block), 0, block.getUnlocalizedName().substring(5)));
     }
 }

@@ -1,7 +1,5 @@
 package net.pl3x.rubies.block.dependencies;
 
-import net.pl3x.rubies.block.BlockRubyOreStairs;
-import net.pl3x.rubies.block.BlockRubyStairs;
 import net.pl3x.rubies.block.ModBlocks;
 
 public class DepBlocks {

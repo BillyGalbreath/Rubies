@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "rubies:ruby_chestplate"
+    },
+    "title": "Red looks good, too",
+    "description": "Ruby armor fanatic"
+  },
+  "parent": "minecraft:story/shiny_gear",
+  "criteria": {
+    "ruby_armor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rubies:ruby_helmet"
+          },
+          {
+            "item": "rubies:ruby_chestplate"
+          },
+          {
+            "item": "rubies:ruby_leggings"
+          },
+          {
+            "item": "rubies:ruby_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ruby_armor"
+    ]
+  ]
+}
