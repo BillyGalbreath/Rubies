@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.pl3x.rubies.block.ModBlocks;
 import net.pl3x.rubies.item.ModItems;
 import net.pl3x.rubies.proxy.ServerProxy;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Rubies.modId, name = Rubies.name, version = Rubies.version, dependencies = "after:stairs",
         updateJSON = "http://pl3x.net/versions/rubies.json")
@@ -19,6 +21,8 @@ public class Rubies {
     public static final String modId = "rubies";
     public static final String name = "Rubies";
     public static final String version = "@DEV_BUILD@";
+
+    public static final Logger logger = LogManager.getLogger(modId);
 
     @SidedProxy(serverSide = "net.pl3x.rubies.proxy.ServerProxy", clientSide = "net.pl3x.rubies.proxy.ClientProxy")
     public static ServerProxy proxy;

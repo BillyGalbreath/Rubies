@@ -46,14 +46,25 @@ public class ModItems {
 
     private static void increaseMaxArmor() {
         try {
-            Field field = ReflectionHelper.findField(SharedMonsterAttributes.class, "ARMOR");
-            field.setAccessible(true);
+            Field armorField;
+            try {
+                armorField = ReflectionHelper.findField(SharedMonsterAttributes.class, "field_188791_q"); // ARMOR
+            } catch (ReflectionHelper.UnableToFindFieldException e1) {
+                try {
+                    armorField = ReflectionHelper.findField(SharedMonsterAttributes.class, "ARMOR");
+                } catch (ReflectionHelper.UnableToFindFieldException e2) {
+                    Rubies.logger.error("Unable to edit maximum armor value!");
+                    Rubies.logger.error(e2);
+                    return;
+                }
+            }
+            armorField.setAccessible(true);
 
             Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            modifiersField.setInt(armorField, armorField.getModifiers() & ~Modifier.FINAL);
 
-            field.set(null, new RangedAttribute(null, "generic.armor", 0.0D, 0.0D, 40.0D).setShouldWatch(true));
+            armorField.set(null, new RangedAttribute(null, "generic.armor", 0.0D, 0.0D, 40.0D).setShouldWatch(true));
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
