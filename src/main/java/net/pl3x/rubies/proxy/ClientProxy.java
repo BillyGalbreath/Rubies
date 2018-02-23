@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -20,7 +21,9 @@ public class ClientProxy extends ServerProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
         MinecraftForge.EVENT_BUS.register(this);
-        ModelLoaderRegistry.registerLoader(new ModelLoader());
+        if (!FMLClientHandler.instance().hasOptifine()) {
+            ModelLoaderRegistry.registerLoader(new ModelLoader());
+        }
     }
 
     @Override
