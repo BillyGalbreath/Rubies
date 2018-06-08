@@ -16,7 +16,6 @@ public class ModWorldGen implements IWorldGenerator {
     @Override
     public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (RubyConfig.oreChance > 0 && RubyConfig.oreVeinSize > 0 && world.provider.getDimensionType() == DimensionType.OVERWORLD) {
-            System.out.println("ding! " + System.currentTimeMillis());
             WorldGenMinable generator = new WorldGenMinable(ModBlocks.RUBY_ORE.getDefaultState(), rand.nextInt(RubyConfig.oreVeinSize));
             int yDiff = RubyConfig.oreMaxY - RubyConfig.oreMinY + 1;
             for (int i = 0; i < RubyConfig.oreChance; i++) {
