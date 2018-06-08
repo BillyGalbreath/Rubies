@@ -16,66 +16,11 @@ tile.ruby_ore.name=Ruby Ore
 tile.stairs_ruby.name=Ruby Stairs
 tile.stairs_ruby_ore.name=Ruby Ore Stairs
 
-config.title=Rubies Config
-
-config.armor=Armor Settings
-config.armor.tooltip=Change armor data values
-config.armor.durability=Durability
-config.armor.durability.tooltip=Durability factor\n\ndurability * 11 for helmet\ndurability * 16 for chestplate\ndurability * 15 for leggings\ndurability * 13 for boots
-config.armor.enchantability=Enchantability
-config.armor.enchantability.tooltip=This determines the enchantments you get on average per level. The higher this is, the better enchantments you get
-config.armor.toughness=Toughness
-config.armor.toughness.tooltip=Apply extra protection. By default, only diamond armor provides toughness.
-config.armor.boots=Reduction Boots
-config.armor.boots.tooltip=Armor points for boots
-config.armor.leggings=Reduction Leggings
-config.armor.leggings.tooltip=Armor points for leggings
-config.armor.chestplate=Reduction Chestplate
-config.armor.chestplate.tooltip=Armor points for chestplate
-config.armor.helmet=Reduction Helmet
-config.armor.helmet.tooltip=Armor points for helmet
-
-config.block.ruby=Ruby Block Settings
-config.block.ruby.tooltip=Change data values for Ruby Blocks
-config.block.rubyOre=Ruby Ore Settings
-config.block.rubyOre.tooltip=Change data values for Ruby Ore Blocks
-
-config.blocks.hardness=Hardness
-config.blocks.hardness.tooltip=How long it takes to break the block
-config.blocks.resistance=Resistance
-config.blocks.resistance.tooltip=How resistant the block is against explosions
-config.blocks.harvestTool=Harvest Tool
-config.blocks.harvestTool.tooltip=Tool class to break the block faster
-config.blocks.harvestLevel=Harvest Level
-config.blocks.harvestLevel.tooltip=Tool level required to break the block\n\n0: Wood/Gold\n1: Stone\n2: Iron\n3: Diamond
-
-config.smelting=Smelting Settings
-config.smelting.tooltip=Settings for smelting ruby ore blocks
-config.smelting.xp=XP Factor
-config.smelting.xp.tooltip=XP factor for smelting ruby ore blocks\n\n0.0: Cobblestone\n1.0Emeralds/Diamonds
-
-config.tool=Tool Settings
-config.tool.tooltip=Change tool data values
-config.tool.damage=Damage
-config.tool.damage.tooltip=Damage factor against entities
-config.tool.durability=Durability
-config.tool.durability.tooltip=Durability factor
-config.tool.efficiency=Efficiency
-config.tool.efficiency.tooltip=Mining speed
-config.tool.enchantability=Enchantability
-config.tool.enchantability.tooltip=This determines the enchantments you get on average per level. The higher this is, the better enchantments you get
-config.tool.harvestLevel=Harvest Level
-config.tool.harvestLevel.tooltip=This determines which blocks the tool can break/harvest\n\nWood/Gold: 0\nStone: 1\nIron: 2\nDiamond: 3
-
-config.worldgen=WorldGen Settings
-config.worldgen.tooltip=Tooltip Test
-config.worldgen.enabled=Enabled
-config.worldgen.enabled.tooltip=Enable ruby ore world generations
-config.worldgen.veins=Vein Size
-config.worldgen.veins.tooltip=Maximum vein size
-config.worldgen.chances=Chances
+config.worldgen.chances=Ore Chance
 config.worldgen.chances.tooltip=Number of chances per attempt
-config.worldgen.minY=Min Y
+config.worldgen.veins=Ore Vein Size
+config.worldgen.veins.tooltip=Maximum vein size
+config.worldgen.minY=Ore Y Min
 config.worldgen.minY.tooltip=Minimum Y coordinate
-config.worldgen.maxY=Max Y
+config.worldgen.maxY=Ore Y Max
 config.worldgen.maxY.tooltip=Maximum Y coordinate
